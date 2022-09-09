@@ -1,10 +1,11 @@
 package com.App.App.Entidades;
 
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "MovimientoDeDinero")
+@Table(name = "MovimientoDinero")
 public class MovimientoDinero {
 
     @Id
@@ -16,8 +17,8 @@ public class MovimientoDinero {
     @Column(nullable = false)
     private String concepto;
     @ManyToOne
-    @JoinColumn(name = "nombreEmpleado")
-    private Empleado empleado;
+    @JoinColumn(name = "documento")
+    private Empleado documento;
     @ManyToOne
     @JoinColumn(name = "NIT")
     private Empresa empresa;
@@ -33,11 +34,11 @@ public class MovimientoDinero {
     public MovimientoDinero() {
     }
 
-    public MovimientoDinero(String id, double monto, String concepto, Empleado empleado, Empresa empresa, Date updatedAt) {
+    public MovimientoDinero(String id, double monto, String concepto, Empleado documento, Empresa empresa, Date updatedAt) {
         this.id = id;
         this.monto = monto;
         this.concepto = concepto;
-        this.empleado = empleado;
+        this.documento = documento;
         this.empresa = empresa;
         this.updatedAt = updatedAt;
     }
@@ -67,12 +68,12 @@ public class MovimientoDinero {
         this.concepto = concepto;
     }
 
-    public Empleado getEmpleado() {
-        return empleado;
+    public Empleado getDocumento() {
+        return documento;
     }
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
+    public void setDocumento(Empleado documento) {
+        this.documento = documento;
     }
 
     public Empresa getEmpresa() {
@@ -98,7 +99,7 @@ public class MovimientoDinero {
                 "id='" + id + '\'' +
                 ", monto=" + monto +
                 ", concepto='" + concepto + '\'' +
-                ", empleado=" + empleado +
+                ", documento=" + documento +
                 ", empresa=" + empresa +
                 ", updatedAt=" + updatedAt +
                 '}';
