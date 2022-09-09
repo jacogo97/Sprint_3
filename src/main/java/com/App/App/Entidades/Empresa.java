@@ -3,6 +3,7 @@ package com.App.App.Entidades;
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 
 @Entity
 @Table(name = "Empresas")
@@ -17,18 +18,24 @@ public class Empresa {
     private String direccion;
     @Column(nullable = false)
     private String telefono;
-    @OneToOne
+    //@OneToOne
+    @ManyToOne
     @JoinColumn(name = "empresa")
-    private MovimientoDinero[] movimiento;
+    private MovimientoDinero movimiento;
+    @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    private Calendar updatedAt;
+    private Date updatedAt;
+
+    @PrePersist()
+    public void prePersist(){
+        this.updatedAt = new Date();
+    }
 
 
     public Empresa() {
     }
 
-
-    public Empresa(String NIT, String nombreEmpresa, String direccion, String telefono, MovimientoDinero[] movimiento, Calendar updatedAt) {
+    public Empresa(String NIT, String nombreEmpresa, String direccion, String telefono, MovimientoDinero movimiento, Date updatedAt) {
         this.NIT = NIT;
         this.nombreEmpresa = nombreEmpresa;
         this.direccion = direccion;
@@ -70,19 +77,19 @@ public class Empresa {
         this.telefono = telefono;
     }
 
-    public MovimientoDinero[] getMovimiento() {
+    public MovimientoDinero getMovimiento() {
         return movimiento;
     }
 
-    public void setMovimiento(MovimientoDinero[] movimiento) {
+    public void setMovimiento(MovimientoDinero movimiento) {
         this.movimiento = movimiento;
     }
 
-    public Calendar getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Calendar updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -94,7 +101,7 @@ public class Empresa {
                 ", nombreEmpresa='" + nombreEmpresa + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", telefono='" + telefono + '\'' +
-                ", movimiento=" + Arrays.toString(movimiento) +
+                ", movimiento=" + movimiento +
                 ", updatedAt=" + updatedAt +
                 '}';
     }

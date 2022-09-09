@@ -2,11 +2,12 @@ package com.App.App.Controlador;
 
 import com.App.App.Entidades.Empresa;
 import com.App.App.Servicios.EmpresaServicio;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class EmpresaControlador {
@@ -19,7 +20,32 @@ public class EmpresaControlador {
 
     @GetMapping("/enterprises")
     public ArrayList<Empresa> Listar(){
+
         return servicio.listarEmpresas();
+    }
+
+
+    @PostMapping("/enterprises")
+    public String crearEmpresa(@RequestBody Empresa empresa){
+
+        return servicio.crearEmpresa(empresa);
+    }
+
+    @GetMapping("enterprises/{id}")
+    public Optional<Empresa> buscarEmpresa (@PathVariable("id") String NIT ){
+
+        return servicio.buscarEmpresa(NIT);
+    }
+
+    @DeleteMapping("/enterprises/{id}")
+    public String eliminarEmpresa(@PathVariable("id") String NIT){
+
+        return servicio.eliminarEmpresa(NIT);
+    }
+
+    @PatchMapping("/enterprises/{id}")
+    public Empresa actualizarEmpresa(@PathVariable("id") String NIT, @RequestBody Map<Object, Object> empresaMap){
+       return servicio.actualizarEmpresa(NIT, empresaMap);
     }
 
 

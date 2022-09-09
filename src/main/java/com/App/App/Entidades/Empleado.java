@@ -3,12 +3,15 @@ package com.App.App.Entidades;
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 
 @Entity
 @Table(name = "Empleados")
 public class Empleado {
 
     @Id
+    @Column(nullable = false)
+    private String documento;
     @Column(nullable = false)
     private String nombreEmpleado;
     @Column(nullable = false)
@@ -17,19 +20,26 @@ public class Empleado {
     @JoinColumn(name = "NIT")
     private Empresa empresa;
     @Column(nullable = false)
-    private String rol;
-    @OneToOne
+    private Rol rol;
+    //@OneToOne
+    @ManyToOne
     @JoinColumn(name = "empleado")
     private MovimientoDinero[] movimiento;
+    @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    private Calendar updatedAt;
+    private Date updatedAt;
 
+
+    @PrePersist
+    public void prePersist(){
+        this.updatedAt = new Date();
+    }
 
     public Empleado() {
     }
 
-
-    public Empleado(String nombreEmpleado, String correo, Empresa empresa, String rol, MovimientoDinero[] movimiento, Calendar updatedAt) {
+    public Empleado(String documento, String nombreEmpleado, String correo, Empresa empresa, Rol rol, MovimientoDinero[] movimiento, Date updatedAt) {
+        this.documento = documento;
         this.nombreEmpleado = nombreEmpleado;
         this.correo = correo;
         this.empresa = empresa;
@@ -38,6 +48,14 @@ public class Empleado {
         this.updatedAt = updatedAt;
     }
 
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
 
     public String getNombreEmpleado() {
         return nombreEmpleado;
@@ -63,11 +81,11 @@ public class Empleado {
         this.empresa = empresa;
     }
 
-    public String getRol() {
+    public Rol getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(Rol rol) {
         this.rol = rol;
     }
 
@@ -79,11 +97,11 @@ public class Empleado {
         this.movimiento = movimiento;
     }
 
-    public Calendar getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Calendar updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
@@ -91,10 +109,11 @@ public class Empleado {
     @Override
     public String toString() {
         return "Empleado{" +
-                "nombreEmpleado='" + nombreEmpleado + '\'' +
+                "documento='" + documento + '\'' +
+                ", nombreEmpleado='" + nombreEmpleado + '\'' +
                 ", correo='" + correo + '\'' +
                 ", empresa=" + empresa +
-                ", rol='" + rol + '\'' +
+                ", rol=" + rol +
                 ", movimiento=" + Arrays.toString(movimiento) +
                 ", updatedAt=" + updatedAt +
                 '}';
