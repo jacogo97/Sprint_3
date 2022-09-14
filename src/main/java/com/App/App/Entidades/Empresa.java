@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "Empresas")
@@ -19,8 +20,8 @@ public class Empresa {
     @Column(nullable = false)
     private String telefono;
     //@OneToOne
-    @ManyToOne
-    @JoinColumn(name = "empresa")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "empresa", referencedColumnName = "id", nullable = false)
     private MovimientoDinero movimiento;
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
@@ -31,6 +32,9 @@ public class Empresa {
         this.updatedAt = new Date();
     }
 
+
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<MovimientoDinero> movimientos;
 
     public Empresa() {
     }

@@ -3,6 +3,7 @@ package com.App.App.Entidades;
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "Empleados")
@@ -15,14 +16,14 @@ public class Empleado {
     private String nombreEmpleado;
     @Column(nullable = false)
     private String correo;
-    @ManyToOne
-    @JoinColumn(name = "NIT")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "NIT", referencedColumnName = "NIT", nullable = false)
     private Empresa empresa;
     @Column(nullable = false)
     private Rol rol;
     //@OneToOne
-    @ManyToOne
-    @JoinColumn(name = "empleado")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
     private MovimientoDinero[] movimiento;
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
@@ -33,6 +34,10 @@ public class Empleado {
     public void prePersist(){
         this.updatedAt = new Date();
     }
+
+    @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<MovimientoDinero> movimientos;
+
 
     public Empleado() {
     }
