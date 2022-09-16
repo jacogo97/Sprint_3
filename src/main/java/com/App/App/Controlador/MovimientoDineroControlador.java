@@ -25,7 +25,7 @@ public class MovimientoDineroControlador {
     }
 
     @GetMapping("/enterpises/{id}/movements")
-    public Optional<MovimientoDinero> buscarMovimiento(@PathVariable("id") String id){
+    public Optional<MovimientoDinero> buscarMovimiento(@PathVariable("id") int id){
         return servicio.buscarMovimiento(id);
     }
 
@@ -35,12 +35,12 @@ public class MovimientoDineroControlador {
     }
 
     @DeleteMapping("/enterprises/{id}/movements")
-    public String eliminarEmpleado(@PathVariable("id") String id){
+    public String eliminarEmpleado(@PathVariable("id") int id){
         return servicio.eliminarMovimiento(id);
     }
 
     @PatchMapping("/enterprises/{id}/movements")
-    public MovimientoDinero actualizarMovimiento(@PathVariable("id") String id, @RequestBody Map<Object, Object> movimientoMap){
+    public MovimientoDinero actualizarMovimiento(@PathVariable("id") int id, @RequestBody Map<Object, Object> movimientoMap){
         return servicio.actualizarMovimiento(id, movimientoMap);
     }
 }

@@ -16,15 +16,15 @@ public class Empleado {
     private String nombreEmpleado;
     @Column(nullable = false)
     private String correo;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "NIT", referencedColumnName = "NIT", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "NIT", referencedColumnName = "NIT", nullable = true)
     private Empresa empresa;
     @Column(nullable = false)
     private Rol rol;
-    //@OneToOne
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
-    private MovimientoDinero[] movimiento;
+    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = true)
+    private MovimientoDinero movimiento;
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Date updatedAt;
@@ -35,14 +35,14 @@ public class Empleado {
         this.updatedAt = new Date();
     }
 
-    @OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Set<MovimientoDinero> movimientos;
+    /*@OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<MovimientoDinero> movimientos;*/
 
 
     public Empleado() {
     }
 
-    public Empleado(String documento, String nombreEmpleado, String correo, Empresa empresa, Rol rol, MovimientoDinero[] movimiento, Date updatedAt) {
+    public Empleado(String documento, String nombreEmpleado, String correo, Empresa empresa, Rol rol, MovimientoDinero movimiento, Date updatedAt, Set<MovimientoDinero> movimientos) {
         this.documento = documento;
         this.nombreEmpleado = nombreEmpleado;
         this.correo = correo;
@@ -93,11 +93,11 @@ public class Empleado {
         this.rol = rol;
     }
 
-    public MovimientoDinero[] getMovimiento() {
+    public MovimientoDinero getMovimiento() {
         return movimiento;
     }
 
-    public void setMovimiento(MovimientoDinero[] movimiento) {
+    public void setMovimiento(MovimientoDinero movimiento) {
         this.movimiento = movimiento;
     }
 
@@ -110,6 +110,8 @@ public class Empleado {
     }
 
 
+
+
     @Override
     public String toString() {
         return "Empleado{" +
@@ -118,7 +120,7 @@ public class Empleado {
                 ", correo='" + correo + '\'' +
                 ", empresa=" + empresa +
                 ", rol=" + rol +
-                ", movimiento=" + Arrays.toString(movimiento) +
+                ", movimiento=" + movimiento +
                 ", updatedAt=" + updatedAt +
                 '}';
     }

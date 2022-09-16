@@ -12,16 +12,16 @@ public class MovimientoDinero {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private int id;
     @Column(nullable = false)
     private double monto;
     @Column(nullable = false)
     private String concepto;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "documento", referencedColumnName = "documento", nullable = false)
+    @JoinColumn(name = "documento", referencedColumnName = "documento", nullable = true)
     private Empleado documento;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "NIT", referencedColumnName = "NIT", nullable = false)
+    @JoinColumn(name = "NIT", referencedColumnName = "NIT", nullable = true)
     private Empresa empresa;
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
@@ -32,13 +32,13 @@ public class MovimientoDinero {
         this.updatedAt = new Date();
     }
 
-    @OneToMany(mappedBy = "movimiento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Set<MovimientoDinero> movimientos;
+    /*@OneToMany(mappedBy = "movimiento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<MovimientoDinero> movimientos;*/
 
     public MovimientoDinero() {
     }
 
-    public MovimientoDinero(String id, double monto, String concepto, Empleado documento, Empresa empresa, Date updatedAt) {
+    public MovimientoDinero(int id, double monto, String concepto, Empleado documento, Empresa empresa, Date updatedAt) {
         this.id = id;
         this.monto = monto;
         this.concepto = concepto;
@@ -48,11 +48,11 @@ public class MovimientoDinero {
     }
 
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -108,4 +108,5 @@ public class MovimientoDinero {
                 ", updatedAt=" + updatedAt +
                 '}';
     }
+
 }

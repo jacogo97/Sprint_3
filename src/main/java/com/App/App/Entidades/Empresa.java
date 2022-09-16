@@ -20,8 +20,8 @@ public class Empresa {
     @Column(nullable = false)
     private String telefono;
     //@OneToOne
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "empresa", referencedColumnName = "id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = true)
     private MovimientoDinero movimiento;
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
@@ -33,8 +33,8 @@ public class Empresa {
     }
 
 
-    @OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Set<MovimientoDinero> movimientos;
+    /*@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<MovimientoDinero> movimientos;*/
 
     public Empresa() {
     }
@@ -109,4 +109,6 @@ public class Empresa {
                 ", updatedAt=" + updatedAt +
                 '}';
     }
+
+
 }

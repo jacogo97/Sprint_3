@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MovimientoDineroRepositorio extends JpaRepository<MovimientoDinero, String> {
+public interface MovimientoDineroRepositorio extends JpaRepository<MovimientoDinero, Integer> {
 }

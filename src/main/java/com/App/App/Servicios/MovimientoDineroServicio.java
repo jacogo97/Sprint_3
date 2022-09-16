@@ -23,7 +23,7 @@ public class MovimientoDineroServicio {
         return (List<MovimientoDinero>) repositorio.findAll();
     }
 
-    public Optional<MovimientoDinero> buscarMovimiento(String id){
+    public Optional<MovimientoDinero> buscarMovimiento(int id){
 
         return repositorio.findById(id);
     }
@@ -37,7 +37,7 @@ public class MovimientoDineroServicio {
         }
     }
 
-    public String eliminarMovimiento(String movimiento){
+    public String eliminarMovimiento(int movimiento){
         if(buscarMovimiento(movimiento).isPresent()){
             repositorio.deleteById(movimiento);
             return "El movimiento fue eliminado correctamente.";
@@ -46,7 +46,7 @@ public class MovimientoDineroServicio {
         }
     }
 
-    public MovimientoDinero actualizarMovimiento(String id, Map<Object, Object> movimientoMap){
+    public MovimientoDinero actualizarMovimiento(int id, Map<Object, Object> movimientoMap){
         MovimientoDinero movimiento = (MovimientoDinero) repositorio.findById(id).get();
         movimientoMap.forEach((key, value)->{
             Field campo = ReflectionUtils.findField(MovimientoDinero.class, (String) key);
@@ -55,4 +55,5 @@ public class MovimientoDineroServicio {
         });
         return repositorio.save(movimiento);
     }
+
 }
