@@ -1,6 +1,8 @@
 package com.App.App.Entidades;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -17,12 +19,12 @@ public class MovimientoDinero {
     private double monto;
     @Column(nullable = false)
     private String concepto;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne//(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "documento", referencedColumnName = "documento", nullable = true)
-    private Empleado documento;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Empleado Doc_Empleado;
+    @OneToOne//(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "NIT", referencedColumnName = "NIT", nullable = true)
-    private Empresa empresa;
+    private Empresa NIT_Empresa;
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Date updatedAt;
@@ -32,18 +34,15 @@ public class MovimientoDinero {
         this.updatedAt = new Date();
     }
 
-    /*@OneToMany(mappedBy = "movimiento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Set<MovimientoDinero> movimientos;*/
-
     public MovimientoDinero() {
     }
 
-    public MovimientoDinero(int id, double monto, String concepto, Empleado documento, Empresa empresa, Date updatedAt) {
+    public MovimientoDinero(int id, double monto, String concepto, Empleado doc_Empleado, Empresa NIT_Empresa, Date updatedAt) {
         this.id = id;
         this.monto = monto;
         this.concepto = concepto;
-        this.documento = documento;
-        this.empresa = empresa;
+        this.Doc_Empleado = doc_Empleado;
+        this.NIT_Empresa = NIT_Empresa;
         this.updatedAt = updatedAt;
     }
 
@@ -72,20 +71,20 @@ public class MovimientoDinero {
         this.concepto = concepto;
     }
 
-    public Empleado getDocumento() {
-        return documento;
+    public Empleado getDoc_Empleado() {
+        return Doc_Empleado;
     }
 
-    public void setDocumento(Empleado documento) {
-        this.documento = documento;
+    public void setDoc_Empleado(Empleado doc_Empleado) {
+        this.Doc_Empleado = doc_Empleado;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
+    public Empresa getNIT_Empresa() {
+        return NIT_Empresa;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
+    public void setNIT_Empresa(Empresa NIT_Empresa) {
+        this.NIT_Empresa = NIT_Empresa;
     }
 
     public Date getUpdatedAt() {
@@ -100,13 +99,13 @@ public class MovimientoDinero {
     @Override
     public String toString() {
         return "MovimientoDinero{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", monto=" + monto +
                 ", concepto='" + concepto + '\'' +
-                ", documento=" + documento +
-                ", empresa=" + empresa +
+                ", Doc_Empleado=" + Doc_Empleado +
+                ", NIT_Empresa=" + NIT_Empresa +
                 ", updatedAt=" + updatedAt +
                 '}';
     }
-
 }
+

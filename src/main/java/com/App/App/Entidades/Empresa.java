@@ -1,5 +1,7 @@
 package com.App.App.Entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -19,10 +21,6 @@ public class Empresa {
     private String direccion;
     @Column(nullable = false)
     private String telefono;
-    //@OneToOne
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = true)
-    private MovimientoDinero movimiento;
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Date updatedAt;
@@ -33,18 +31,14 @@ public class Empresa {
     }
 
 
-    /*@OneToMany(mappedBy = "empresa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Set<MovimientoDinero> movimientos;*/
-
     public Empresa() {
     }
 
-    public Empresa(String NIT, String nombreEmpresa, String direccion, String telefono, MovimientoDinero movimiento, Date updatedAt) {
+    public Empresa(String NIT, String nombreEmpresa, String direccion, String telefono, Date updatedAt) {
         this.NIT = NIT;
         this.nombreEmpresa = nombreEmpresa;
         this.direccion = direccion;
         this.telefono = telefono;
-        this.movimiento = movimiento;
         this.updatedAt = updatedAt;
     }
 
@@ -81,14 +75,6 @@ public class Empresa {
         this.telefono = telefono;
     }
 
-    public MovimientoDinero getMovimiento() {
-        return movimiento;
-    }
-
-    public void setMovimiento(MovimientoDinero movimiento) {
-        this.movimiento = movimiento;
-    }
-
     public Date getUpdatedAt() {
         return updatedAt;
     }
@@ -105,10 +91,7 @@ public class Empresa {
                 ", nombreEmpresa='" + nombreEmpresa + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", telefono='" + telefono + '\'' +
-                ", movimiento=" + movimiento +
                 ", updatedAt=" + updatedAt +
                 '}';
     }
-
-
 }

@@ -1,5 +1,7 @@
 package com.App.App.Entidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Date;
@@ -16,15 +18,11 @@ public class Empleado {
     private String nombreEmpleado;
     @Column(nullable = false)
     private String correo;
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne//(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "NIT", referencedColumnName = "NIT", nullable = true)
-    private Empresa empresa;
+    private Empresa Pertenece_A_Empresa;
     @Column(nullable = false)
     private Rol rol;
-    @OneToOne
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = true)
-    private MovimientoDinero movimiento;
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Date updatedAt;
@@ -35,20 +33,16 @@ public class Empleado {
         this.updatedAt = new Date();
     }
 
-    /*@OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Set<MovimientoDinero> movimientos;*/
-
 
     public Empleado() {
     }
 
-    public Empleado(String documento, String nombreEmpleado, String correo, Empresa empresa, Rol rol, MovimientoDinero movimiento, Date updatedAt, Set<MovimientoDinero> movimientos) {
+    public Empleado(String documento, String nombreEmpleado, String correo, Empresa pertenece_A_Empresa, Rol rol, Date updatedAt) {
         this.documento = documento;
         this.nombreEmpleado = nombreEmpleado;
         this.correo = correo;
-        this.empresa = empresa;
+        this.Pertenece_A_Empresa = pertenece_A_Empresa;
         this.rol = rol;
-        this.movimiento = movimiento;
         this.updatedAt = updatedAt;
     }
 
@@ -77,12 +71,12 @@ public class Empleado {
         this.correo = correo;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
+    public Empresa getPertenece_A_Empresa() {
+        return Pertenece_A_Empresa;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
+    public void setPertenece_A_Empresa(Empresa pertenece_A_Empresa) {
+        this.Pertenece_A_Empresa = pertenece_A_Empresa;
     }
 
     public Rol getRol() {
@@ -91,14 +85,6 @@ public class Empleado {
 
     public void setRol(Rol rol) {
         this.rol = rol;
-    }
-
-    public MovimientoDinero getMovimiento() {
-        return movimiento;
-    }
-
-    public void setMovimiento(MovimientoDinero movimiento) {
-        this.movimiento = movimiento;
     }
 
     public Date getUpdatedAt() {
@@ -110,17 +96,14 @@ public class Empleado {
     }
 
 
-
-
     @Override
     public String toString() {
         return "Empleado{" +
                 "documento='" + documento + '\'' +
                 ", nombreEmpleado='" + nombreEmpleado + '\'' +
                 ", correo='" + correo + '\'' +
-                ", empresa=" + empresa +
+                ", Pertenece_A_Empresa=" + Pertenece_A_Empresa +
                 ", rol=" + rol +
-                ", movimiento=" + movimiento +
                 ", updatedAt=" + updatedAt +
                 '}';
     }

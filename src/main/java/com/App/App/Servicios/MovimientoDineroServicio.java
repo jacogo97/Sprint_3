@@ -1,11 +1,15 @@
 package com.App.App.Servicios;
 
+import com.App.App.Entidades.Empleado;
 import com.App.App.Entidades.MovimientoDinero;
+import com.App.App.Repositorio.EmpleadoRepositorio;
+import com.App.App.Repositorio.EmpresaRepositorio;
 import com.App.App.Repositorio.MovimientoDineroRepositorio;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -15,13 +19,38 @@ public class MovimientoDineroServicio {
 
     private MovimientoDineroRepositorio repositorio;
 
-    private MovimientoDineroServicio(MovimientoDineroRepositorio repositorio){
+    public MovimientoDineroServicio(MovimientoDineroRepositorio repositorio){
         this.repositorio = repositorio;
     }
+/*
+    private MovimientoDineroRepositorio MovRepo;
+    private EmpresaRepositorio EmpresaRepo;
+    private EmpleadoRepositorio EmpleadoRepo;
 
-    public List<MovimientoDinero> listarMovimientos(){
-        return (List<MovimientoDinero>) repositorio.findAll();
+    private MovimientoDineroServicio(MovimientoDineroRepositorio repositorio){
+        this.MovRepo = MovRepo;
+        this.EmpresaRepo = EmpresaRepo;
+        this.EmpleadoRepo = EmpleadoRepo;
     }
+
+
+    public MovimientoDinero agregarMovimiento(String NIT, String documento, MovimientoDinero movi){
+        EmpleadoRepo.findById(documento).map(doc -> {
+            movi.setDocumento(doc);
+            return doc;
+        });
+        return EmpresaRepo.findById(NIT).map(Empre ->{
+            movi.setEmpresa(Empre);
+            return MovRepo.save(movi);
+        }).get();
+    }*/
+
+
+    /*public ArrayList<MovimientoDinero> listarMovimientos(){
+        return (ArrayList<MovimientoDinero>) repositorio.findAll();
+    }*/
+    public List<MovimientoDinero> listarMovimientos(){
+        return (List<MovimientoDinero>) repositorio.findAll();}
 
     public Optional<MovimientoDinero> buscarMovimiento(int id){
 

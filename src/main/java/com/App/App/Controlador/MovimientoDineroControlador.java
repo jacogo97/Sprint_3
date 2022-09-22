@@ -4,7 +4,6 @@ package com.App.App.Controlador;
 import com.App.App.Entidades.MovimientoDinero;
 import com.App.App.Servicios.MovimientoDineroServicio;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.spring5.expression.Mvc;
 
 import java.util.List;
 import java.util.Map;
@@ -15,16 +14,22 @@ public class MovimientoDineroControlador {
 
     private MovimientoDineroServicio servicio;
 
+
     public MovimientoDineroControlador(MovimientoDineroServicio servicio){
         this.servicio = servicio;
     }
 
+
+
+
+
+
+
     @GetMapping("/movements")
     public List<MovimientoDinero> listar(){
-        return servicio.listarMovimientos();
-    }
+        return servicio.listarMovimientos();}
 
-    @GetMapping("/enterpises/{id}/movements")
+    @GetMapping("movements/{id}")
     public Optional<MovimientoDinero> buscarMovimiento(@PathVariable("id") int id){
         return servicio.buscarMovimiento(id);
     }
@@ -34,13 +39,14 @@ public class MovimientoDineroControlador {
         return servicio.crearMovimiento(id);
     }
 
-    @DeleteMapping("/enterprises/{id}/movements")
+    @DeleteMapping("movements/{id}")
     public String eliminarEmpleado(@PathVariable("id") int id){
         return servicio.eliminarMovimiento(id);
     }
 
-    @PatchMapping("/enterprises/{id}/movements")
+    @PatchMapping("movements/{id}")
     public MovimientoDinero actualizarMovimiento(@PathVariable("id") int id, @RequestBody Map<Object, Object> movimientoMap){
         return servicio.actualizarMovimiento(id, movimientoMap);
     }
+
 }
