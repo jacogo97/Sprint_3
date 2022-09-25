@@ -60,5 +60,20 @@ public class EmpresaServicio {
         });
         return repositorio.save(empresa);
     }
+
+    public Empresa buscarEmpresa1(String NIT){
+        return repositorio.findById(NIT).get();
+    }
+
+
+    public String actualizarEmpresa1(Empresa empresa){
+        if(buscarEmpresa(empresa.getNIT()).isPresent()){
+            repositorio.save(empresa);
+            return "Empresa actualizada exitosamente";
+        }else{
+            return "La empresa a modificar no existe";
+        }
+    }
+
 }
 

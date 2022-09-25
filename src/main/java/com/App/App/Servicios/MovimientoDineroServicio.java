@@ -1,6 +1,7 @@
 package com.App.App.Servicios;
 
 import com.App.App.Entidades.Empleado;
+import com.App.App.Entidades.Empresa;
 import com.App.App.Entidades.MovimientoDinero;
 import com.App.App.Repositorio.EmpleadoRepositorio;
 import com.App.App.Repositorio.EmpresaRepositorio;
@@ -22,33 +23,9 @@ public class MovimientoDineroServicio {
     public MovimientoDineroServicio(MovimientoDineroRepositorio repositorio){
         this.repositorio = repositorio;
     }
-/*
-    private MovimientoDineroRepositorio MovRepo;
-    private EmpresaRepositorio EmpresaRepo;
-    private EmpleadoRepositorio EmpleadoRepo;
-
-    private MovimientoDineroServicio(MovimientoDineroRepositorio repositorio){
-        this.MovRepo = MovRepo;
-        this.EmpresaRepo = EmpresaRepo;
-        this.EmpleadoRepo = EmpleadoRepo;
-    }
 
 
-    public MovimientoDinero agregarMovimiento(String NIT, String documento, MovimientoDinero movi){
-        EmpleadoRepo.findById(documento).map(doc -> {
-            movi.setDocumento(doc);
-            return doc;
-        });
-        return EmpresaRepo.findById(NIT).map(Empre ->{
-            movi.setEmpresa(Empre);
-            return MovRepo.save(movi);
-        }).get();
-    }*/
 
-
-    /*public ArrayList<MovimientoDinero> listarMovimientos(){
-        return (ArrayList<MovimientoDinero>) repositorio.findAll();
-    }*/
     public List<MovimientoDinero> listarMovimientos(){
         return (List<MovimientoDinero>) repositorio.findAll();}
 

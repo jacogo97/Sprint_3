@@ -5,6 +5,7 @@ import com.App.App.Entidades.MovimientoDinero;
 import com.App.App.Servicios.MovimientoDineroServicio;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -22,12 +23,10 @@ public class MovimientoDineroControlador {
 
 
 
-
-
-
     @GetMapping("/movements")
     public List<MovimientoDinero> listar(){
         return servicio.listarMovimientos();}
+
 
     @GetMapping("movements/{id}")
     public Optional<MovimientoDinero> buscarMovimiento(@PathVariable("id") int id){
