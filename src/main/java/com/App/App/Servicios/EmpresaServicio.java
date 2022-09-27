@@ -62,6 +62,7 @@ public class EmpresaServicio {
     }
 
     public Empresa buscarEmpresa1(String NIT){
+
         return repositorio.findById(NIT).get();
     }
 

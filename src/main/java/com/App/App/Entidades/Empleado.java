@@ -18,7 +18,7 @@ public class Empleado {
     private String nombreEmpleado;
     @Column(nullable = false)
     private String correo;
-    @ManyToOne//(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne
     @JoinColumn(name = "NIT", referencedColumnName = "NIT", nullable = true)
     private Empresa Pertenece_A_Empresa;
     @Column(nullable = false)

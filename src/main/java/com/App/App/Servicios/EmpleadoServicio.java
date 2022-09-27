@@ -59,6 +59,20 @@ public class EmpleadoServicio {
         return repositorio.save(empleado);
     }
 
+    public Empleado buscarEmpleado1(String documento){
+        return repositorio.findById(documento).get();
+    }
+
+
+    public String actualizarEmpleado1(Empleado empleado){
+        if(buscarEmpleado(empleado.getDocumento()).isPresent()){
+            repositorio.save(empleado);
+            return "Empleado actualizado exitosamente";
+        }else{
+            return "El empleado a modificar no existe";
+        }
+    }
+
 
 
 }

@@ -3,6 +3,8 @@ package com.App.App.Controlador;
 import com.App.App.Entidades.Empresa;
 import com.App.App.Servicios.EmpresaServicio;
 import org.springframework.boot.Banner;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,11 @@ public class vistaEmpresaControlador {
 
     public vistaEmpresaControlador(EmpresaServicio servicio){
         this.servicio = servicio;
+    }
+
+    @GetMapping("/")
+    public String index(Model model, @AuthenticationPrincipal OidcUser principal){
+        return "index";
     }
 
     @GetMapping("/Empresas")
